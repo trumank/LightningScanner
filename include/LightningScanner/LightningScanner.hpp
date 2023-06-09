@@ -10,6 +10,7 @@
 #include <LightningScanner/backends/Avx2.hpp>
 #include <LightningScanner/backends/Scalar.hpp>
 #include <LightningScanner/backends/Sse42.hpp>
+#include <LightningScanner/backends/StdFind.hpp>
 
 namespace LightningScanner {
 
@@ -62,6 +63,8 @@ public:
             return FindAvx2(m_Pattern, startAddr, size);
         else if (PreferredMode == ScanMode::Sse42 && cpuInfo.sse42Supported)
             return FindSse42(m_Pattern, startAddr, size);
+        else if (PreferredMode == ScanMode::StdFind)
+            return FindStdFind(m_Pattern, startAddr, size);
         else if (PreferredMode == ScanMode::Scalar)
             return FindScalar(m_Pattern, startAddr, size);
 
